@@ -29,7 +29,7 @@ int read_extcsd(__u8 *ext_csd)
     idata.write_flag = 0;
 	idata.opcode =62;
 	idata.arg =0;
-    mmc_movi_vendor_cmd(0xEFAC62EC, fd);
+    mmc_62_vendor_cmd(0xEFAC62EC, fd);
 	idata.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_AC;
 	 
 	//idata.blksz = 512;
@@ -42,7 +42,7 @@ int read_extcsd(__u8 *ext_csd)
 	return ret;
 }
 
-int mmc_movi_vendor_cmd(unsigned int arg, int fd) {
+int mmc_62_vendor_cmd(unsigned int arg, int fd) {
 	int ret = 0;
 	struct mmc_ioc_cmd idata = {0};
 
@@ -59,6 +59,18 @@ int mmc_movi_vendor_cmd(unsigned int arg, int fd) {
 
 
 int main(){
+    int key;
+    printf("\tugurkrcl's eMMC Health Reader V1");
+    printf("\nSelect Device:");
+    printf("\n[0] Samsung MoviNAND 4.x");
+    scanf("%d",&key);
+    if(key==0){
+    read_sam();
+    }
+return -1;	
+}
+
+void read_sam(){
     int i=0;
     int x = 0;
     int y=0;
@@ -67,9 +79,9 @@ int main(){
     printf("send vendor cmd ?\n");
     scanf("%d",&y);
     if(y==1){
-    x = mmc_movi_vendor_cmd(0xEFAC62EC, fc);
+    x = mmc_62_vendor_cmd(0xEFAC62EC, fc);
 	if(x==0)printf("[OK] Vendor Command\n");
-    x = mmc_movi_vendor_cmd(0x0000CCEE, fc);
+    x = mmc_62_vendor_cmd(0x0000CCEE, fc);
     if(x==0)printf("[OK] SMART Report Command\n");
    }
     int ret=0;
@@ -87,7 +99,7 @@ int main(){
 	mmc_ioc_cmd_set_data(idata, smart);
     x = ioctl(fc, MMC_IOC_CMD, &idata);
     if(x==0)printf("[OK] Get SMART Report\n");
-    x = mmc_movi_vendor_cmd(0x00DECCEE, fc);    
+    x = mmc_62_vendor_cmd(0x00DECCEE, fc);    
     printf("Enter '1' if you want to print all SMART Block : ");
     scanf("%d",&i);
     printf("\n");
@@ -244,6 +256,5 @@ int main(){
 
     printf("Controller Name is : %c%c%c%c\n\n" , smart[312] , smart[313] , smart[314] , smart[315]);
  
-return -1;	
 }
 
