@@ -297,42 +297,42 @@ void read_7232(){
 	for(int i=0;i<512;i++){
 	printf("Data Slice %d : %x\n",i,smart[i]);}printf("\n");}
 
+    b1=smart[0];
+    b2=smart[1]<<8;
+    b3=smart[2]<<16;
+    b4=smart[3]<<24;
+    printf("Average PE Cycles of Enhanced Area is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[4];
+    b2=smart[5]<<8;
+    b3=smart[6]<<16;
+    b4=smart[7]<<24;
+    printf("Average PE Cycles of SLC Area  is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[8];
+    b2=smart[9]<<8;
+    b3=smart[10]<<16;
+    b4=smart[11]<<24;
+    printf("Average PE Cycles of MLC/TLC Area  is : %lu\n\n" , b1+b2+b3+b4);
+    
+    b1=smart[12];
+    b2=smart[13]<<8;
+    b3=smart[14]<<16;
+    b4=smart[15]<<24;
+    printf("Read Reclaim Count of Enhanced Area is : %lu\n" , b1+b2+b3+b4);
+    
     b1=smart[16];
     b2=smart[17]<<8;
     b3=smart[18]<<16;
     b4=smart[19]<<24;
-    printf("Bank Count is : %lu\n\n" , b1+b2+b3+b4);
+    printf("Read Reclaim Count of SLC Area is : %lu\n" , b1+b2+b3+b4);
     
     b1=smart[20];
     b2=smart[21]<<8;
     b3=smart[22]<<16;
     b4=smart[23]<<24;
-    printf("Bank0 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
-    
-    b1=smart[24];
-    b2=smart[25]<<8;
-    b3=smart[26]<<16;
-    b4=smart[27]<<24;
-    printf("Bank0 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
-    
-    b1=smart[28];
-    b2=smart[29]<<8;
-    b3=smart[30]<<16;
-    b4=smart[31]<<24;
-    printf("Bank0 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
-    
-    b1=smart[32];
-    b2=smart[33]<<8;
-    b3=smart[34]<<16;
-    b4=smart[35]<<24;
-    printf("Bank1 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
-    
-    b1=smart[36];
-    b2=smart[37]<<8;
-    b3=smart[38]<<16;
-    b4=smart[39]<<24;
-    printf("Bank1 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
-    
+    printf("Read Reclaim Count of MLC/TLC Area is : %lu\n\n" , b1+b2+b3+b4);
+    //
     b1=smart[40];
     b2=smart[41]<<8;
     b3=smart[42]<<16;
