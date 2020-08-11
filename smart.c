@@ -62,7 +62,7 @@ int main(){
     int key;
     printf("\tugurkrcl's eMMC Health Reader V1");
     printf("\nSelect Device:");
-    printf("\n[0] Samsung MoviNAND 4.x");
+    printf("\n[0] Samsung MoviNAND 4.x\n");
     scanf("%d",&key);
     if(key==0){
     read_sam();
@@ -71,13 +71,14 @@ return -1;
 }
 
 void read_sam(){
+    printf("\nMoviNAND Health Reader\n\n");
     int i=0;
     int x = 0;
     int y=0;
     unsigned long b1=0,b2=0,b3=0,b4 = 0;
     int fc = open("/dev/mmcblk0", O_RDWR);
-    printf("send vendor cmd ?\n");
-    scanf("%d",&y);
+ //   printf("send vendor cmd ?\n"); //for debug purpose
+ //   scanf("%d",&y);
     if(y==1){
     x = mmc_62_vendor_cmd(0xEFAC62EC, fc);
 	if(x==0)printf("[OK] Vendor Command\n");
@@ -100,8 +101,8 @@ void read_sam(){
     x = ioctl(fc, MMC_IOC_CMD, &idata);
     if(x==0)printf("[OK] Get SMART Report\n");
     x = mmc_62_vendor_cmd(0x00DECCEE, fc);    
-    printf("Enter '1' if you want to print all SMART Block : ");
-    scanf("%d",&i);
+//    printf("Enter '1' if you want to print all SMART Block : ");
+//    scanf("%d",&i); debug 2
     printf("\n");
     if(i==1){
 	for(int i=0;i<512;i++){
