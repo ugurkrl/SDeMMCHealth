@@ -57,7 +57,7 @@ int mmc_62_vendor_cmd(unsigned int arg, int fd) {
 	return ret;
 }
 
-void read_sam(int fc){
+void read_movi_43(int fc){
     printf("\nMoviNAND Health Reader\n\n");
     int i=0;
     int x = 0;
@@ -94,6 +94,205 @@ void read_sam(int fc){
 	for(int i=0;i<512;i++){
 	printf("Data Slice %d : %x\n",i,smart[i]);}printf("\n");}
 
+	b1=smart[0];
+    b2=smart[1];
+    b3=smart[2];
+    b4=smart[3];
+    printf("Error Mode is : 0x%x%x%x%x\n\n" , b1,b2,b3,b4);
+    
+    b1=smart[4];
+    b2=smart[5]<<8;
+    b3=smart[6]<<16;
+    b4=smart[7]<<24;
+    printf("Super Block Size is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[8];
+    b2=smart[9]<<8;
+    b3=smart[10]<<16;
+    b4=smart[11]<<24;
+    printf("Super Page Size is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[12];
+    b2=smart[13]<<8;
+    b3=smart[14]<<16;
+    b4=smart[15]<<24;
+    printf("Optimal Write Size is : %lu\n\n" , b1+b2+b3+b4);
+    
+    b1=smart[16];
+    b2=smart[17]<<8;
+    b3=smart[18]<<16;
+    b4=smart[19]<<24;
+    printf("Bank Count is : %lu\n\n" , b1+b2+b3+b4);
+    
+    b1=smart[20];
+    b2=smart[21]<<8;
+    b3=smart[22]<<16;
+    b4=smart[23]<<24;
+    printf("Bank0 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[24];
+    b2=smart[25]<<8;
+    b3=smart[26]<<16;
+    b4=smart[27]<<24;
+    printf("Bank0 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[28];
+    b2=smart[29]<<8;
+    b3=smart[30]<<16;
+    b4=smart[31]<<24;
+    printf("Bank0 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
+    
+    b1=smart[32];
+    b2=smart[33]<<8;
+    b3=smart[34]<<16;
+    b4=smart[35]<<24;
+    printf("Bank1 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[36];
+    b2=smart[37]<<8;
+    b3=smart[38]<<16;
+    b4=smart[39]<<24;
+    printf("Bank1 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[40];
+    b2=smart[41]<<8;
+    b3=smart[42]<<16;
+    b4=smart[43]<<24;
+    printf("Bank1 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
+    
+    b1=smart[44];
+    b2=smart[45]<<8;
+    b3=smart[46]<<16;
+    b4=smart[47]<<24;
+    printf("Bank2 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[48];
+    b2=smart[49]<<8;
+    b3=smart[50]<<16;
+    b4=smart[51]<<24;
+    printf("Bank2 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[52];
+    b2=smart[53]<<8;
+    b3=smart[54]<<16;
+    b4=smart[55]<<24;
+    printf("Bank2 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
+  
+    b1=smart[56];
+    b2=smart[57]<<8;
+    b3=smart[58]<<16;
+    b4=smart[59]<<24;
+    printf("Bank3 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[60];
+    b2=smart[61]<<8;
+    b3=smart[62]<<16;
+    b4=smart[63]<<24;
+    printf("Bank3 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[64];
+    b2=smart[65]<<8;
+    b3=smart[66]<<16;
+    b4=smart[67]<<24;
+    printf("Bank3 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
+    
+    b1=smart[68];
+    b2=smart[69]<<8;
+    b3=smart[70]<<16;
+    b4=smart[71]<<24;
+    printf("Device Max erase count is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[72];
+    b2=smart[73]<<8;
+    b3=smart[74]<<16;
+    b4=smart[75]<<24;
+    printf("Device Min erase count is : %lu\n" , b1+b2+b3+b4);
+  
+
+    b1=smart[76];
+    b2=smart[77]<<8;
+    b3=smart[78]<<16;
+    b4=smart[79]<<24;
+    printf("Device Avg erase count is : %lu\n\n" , b1+b2+b3+b4);
+    
+    b1=smart[80];
+    b2=smart[81]<<8;
+    b3=smart[82]<<16;
+    b4=smart[83]<<24;
+    printf("Number of UECC Error is : %lu\n\n" , b1+b2+b3+b4);
+  
+    b1=smart[220];
+    b2=smart[221]<<8;
+    b3=smart[222]<<16;
+    b4=smart[223]<<24;
+    printf("Read Reclaim Count is : %lu\n\n" , b1+b2+b3+b4);
+
+    printf("Controller Name is : %c%c%c%c\n\n" , smart[312] , smart[313] , smart[314] , smart[315]);
+ 
+}
+void read_movi_441(int fc){
+    
+
+    printf("\nMoviNAND Health Reader\n\n");
+    int i=0;
+    int x = 0;
+    int y=1;
+    unsigned long b1=0,b2=0,b3=0,b4 = 0;
+ //   printf("send vendor cmd ?\n"); //for debug purpose
+ //   scanf("%d",&y);
+    if(y==1){
+    x = mmc_62_vendor_cmd(0xEFAC62EC, fc);
+	if(x==0)printf("[OK] Vendor Command\n");
+    x = mmc_62_vendor_cmd(0x0000CCEE, fc);
+    if(x==0)printf("[OK] SMART Report Command\n");
+   }
+    int ret=0;
+   __u8 smart[512];
+    struct mmc_ioc_cmd idata;
+	memset(&idata, 0, sizeof(idata));
+	memset(smart, 0, sizeof(__u8) * 512);
+	idata.write_flag = 0;
+	idata.arg = 0;
+	idata.opcode=17;
+	idata.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
+	idata.blksz = 512;
+	idata.blocks = 1;
+	
+	mmc_ioc_cmd_set_data(idata, smart);
+    x = ioctl(fc, MMC_IOC_CMD, &idata);
+    if(x==0)printf("[OK] Get SMART Report\n");
+    x = mmc_62_vendor_cmd(0x00DECCEE, fc);    
+//    printf("Enter '1' if you want to print all SMART Block : ");
+//    scanf("%d",&i); debug 2
+    printf("\n");
+    if(i==1){
+	for(int i=0;i<512;i++){
+	printf("Data Slice %d : %x\n",i,smart[i]);}printf("\n");}
+
+	b1=smart[0];
+    b2=smart[1];
+    b3=smart[2];
+    b4=smart[3];
+    printf("Error Mode is : 0x%x%x%x%x\n\n" , b1,b2,b3,b4);
+    
+    b1=smart[4];
+    b2=smart[5]<<8;
+    b3=smart[6]<<16;
+    b4=smart[7]<<24;
+    printf("Super Block Size is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[8];
+    b2=smart[9]<<8;
+    b3=smart[10]<<16;
+    b4=smart[11]<<24;
+    printf("Super Page Size is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[12];
+    b2=smart[13]<<8;
+    b3=smart[14]<<16;
+    b4=smart[15]<<24;
+    printf("Optimal Write Size is : %lu\n\n" , b1+b2+b3+b4);
+    
     b1=smart[16];
     b2=smart[17]<<8;
     b3=smart[18]<<16;
@@ -436,6 +635,7 @@ void read_7232(int fc){
 
 int main(){
     int key;
+    int altkey;
     char location[64];
     system("clear");
     printf("\tugurkrcl's eMMC Health Reader V1\n");
@@ -444,15 +644,29 @@ int main(){
     int fc = open(location, O_RDWR);
     system("clear");
     printf("\tugurkrcl's eMMC Health Reader V1\n");
-    printf("\nSelect Device:");
-    printf("\n[0] Samsung MoviNAND 4.x");
-    printf("\n[1] Sandisk iNAND 7232\n");
+    printf("\nSelect Vendor:");
+    printf("\n[0] Samsung");
+    printf("\n[1] Sandisk/WD\n");
     scanf("%d",&key);
     system("clear");
     printf("\tugurkrcl's eMMC Health Reader V1\n");
+    
     if(key==0){
-    read_sam(fc);
+    system("clear");
+    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    printf("\nSelect Device:");
+    printf("\n[0] MoviNAND 4.3");
+    printf("\n[1] MoviNAND 4.41\n");
+    scanf("%d",&altkey);
+    system("clear");
+    if(altkey==0){
+    read_movi_43(fc);
+        }
+    if(altkey==1){
+    read_movi_441(fc);
+        }
     }
+    
     if(key==1){
     read_7232(fc);
     }
