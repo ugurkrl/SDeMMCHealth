@@ -267,7 +267,8 @@ void read_7232(){
     int i=0;
     int x = 0;
     int y=1;
-    unsigned long b1=0,b2=0,b3=0,b4 = 0;
+    unsigned long b1=0,b2=0,b3=0,b4=0;
+    float total;
     int fc = open("/dev/mmcblk0", O_RDWR);
  //   printf("send vendor cmd ?\n"); //for debug purpose
  //   scanf("%d",&y);
@@ -297,6 +298,12 @@ void read_7232(){
 	for(int i=0;i<512;i++){
 	printf("Data Slice %d : %x\n",i,smart[i]);}printf("\n");}
 
+	b1=smart[0x60];
+    b2=smart[0x61]<<8;
+    b3=smart[0x62]<<16;
+    b4=smart[0x63]<<24;
+    printf("Average PE Cycles of Hybrid Area  is : %lu\n" , b1+b2+b3+b4);
+    
     b1=smart[0];
     b2=smart[1]<<8;
     b3=smart[2]<<16;
@@ -332,119 +339,117 @@ void read_7232(){
     b3=smart[22]<<16;
     b4=smart[23]<<24;
     printf("Read Reclaim Count of MLC/TLC Area is : %lu\n\n" , b1+b2+b3+b4);
-    //
+    
+    b1=smart[0x18];
+    b2=smart[0x19]<<8;
+    b3=smart[0x1a]<<16;
+    b4=smart[0x1b]<<24;
+    printf("Manufactory Bad Block Count is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[28];
+    b2=smart[29]<<8;
+    b3=smart[30]<<16;
+    b4=smart[31]<<24;
+    printf("Runtime Enhanced Area Bad Block Count is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[32];
+    b2=smart[33]<<8;
+    b3=smart[34]<<16;
+    b4=smart[35]<<24;
+    printf("Runtime SLC Area Bad Block Count is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[36];
+    b2=smart[37]<<8;
+    b3=smart[38]<<16;
+    b4=smart[39]<<24;
+    printf("Runtime MLC/TLC Area Bad Block Count is : %lu\n\n" , b1+b2+b3+b4);
+  
     b1=smart[40];
     b2=smart[41]<<8;
     b3=smart[42]<<16;
     b4=smart[43]<<24;
-    printf("Bank1 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
+    printf("Patch Trial Count is : %lu\n" , b1+b2+b3+b4);
     
-    b1=smart[44];
-    b2=smart[45]<<8;
-    b3=smart[46]<<16;
-    b4=smart[47]<<24;
-    printf("Bank2 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
+    b1=smart[0x2c];
+    b2=smart[0x2d];
+    b3=smart[0x2e];
+    b4=smart[0x2f];
+    printf("Patch Release Date : %c%c%c%c" , b1,b2,b3,b4); //will modify
+    b1=smart[0x30];
+    b2=smart[0x31];
+    b3=smart[0x32];
+    b4=smart[0x33];
+    printf("%c%c%c%c" , b1,b2,b3,b4);
+    b1=smart[0x34];
+    b2=smart[0x35];
+    b3=smart[0x36];
+    b4=smart[0x37];
+    printf("%c%c%c%c\n" , b1,b2,b3,b4);  
     
-    b1=smart[48];
-    b2=smart[49]<<8;
-    b3=smart[50]<<16;
-    b4=smart[51]<<24;
-    printf("Bank2 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
+    b1=smart[0x38];
+    b2=smart[0x39];
+    b3=smart[0x3a];
+    b4=smart[0x3b];
+    printf("Patch Release Time : %c%c%c%c" , b1,b2,b3,b4); //will modify
+    b1=smart[0x3c];
+    b2=smart[0x3d];
+    b3=smart[0x3e];
+    b4=smart[0x3f];
+    printf("%c%c%c%c\n\n" , b1,b2,b3,b4);  
     
-    b1=smart[52];
-    b2=smart[53]<<8;
-    b3=smart[54]<<16;
-    b4=smart[55]<<24;
-    printf("Bank2 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
-  
-    b1=smart[56];
-    b2=smart[57]<<8;
-    b3=smart[58]<<16;
-    b4=smart[59]<<24;
-    printf("Bank3 Init Bad Block is : %lu\n" , b1+b2+b3+b4);
+    b1=smart[0x40];
+    b2=smart[0x41]<<8;
+    b3=smart[0x42]<<16;
+    b4=smart[0x43]<<24;
+    total = b1+b2+b3+b4;
+    printf("Cumulative Write Data Size is : %.1f GB\n" , (total)/10);
     
-    b1=smart[60];
-    b2=smart[61]<<8;
-    b3=smart[62]<<16;
-    b4=smart[63]<<24;
-    printf("Bank3 Init and Runtime Bad Block is : %lu\n" , b1+b2+b3+b4);
+    b1=smart[0x54];
+    b2=smart[0x55]<<8;
+    b3=smart[0x56]<<16;
+    b4=smart[0x57]<<24;
+    total = b1+b2+b3+b4;
+    printf("Cumulative Write Data Size in SmartSLC Area is : %.1f GB\n" , (total)/10);
     
-    b1=smart[64];
-    b2=smart[65]<<8;
-    b3=smart[66]<<16;
-    b4=smart[67]<<24;
-    printf("Bank3 Remaining Reserved Block is : %lu\n\n" , b1+b2+b3+b4);
-    
-    b1=smart[68];
-    b2=smart[69]<<8;
-    b3=smart[70]<<16;
-    b4=smart[71]<<24;
-    printf("Device Max erase count is : %lu\n" , b1+b2+b3+b4);
-    
-    b1=smart[72];
-    b2=smart[73]<<8;
-    b3=smart[74]<<16;
-    b4=smart[75]<<24;
-    printf("Device Min erase count is : %lu\n" , b1+b2+b3+b4);
-  
-
-    b1=smart[76];
-    b2=smart[77]<<8;
-    b3=smart[78]<<16;
-    b4=smart[79]<<24;
-    printf("Device Avg erase count is : %lu\n\n" , b1+b2+b3+b4);
-    
-    b1=smart[80];
-    b2=smart[81]<<8;
-    b3=smart[82]<<16;
-    b4=smart[83]<<24;
-    printf("Read Reclaim count is : %lu\n\n" , b1+b2+b3+b4);
-    
-    b1=smart[84];
-    b2=smart[85]<<8;
-    b3=smart[86]<<16;
-    b4=smart[87]<<24;
-    printf("Optimal trim size is : %lu\n\n" , b1+b2+b3+b4);
-    
-    b1=smart[120];
-    b2=smart[121]<<8;
-    b3=smart[122]<<16;
-    b4=smart[123]<<24;
-    printf("SLC Max erase count is : %lu\n" , b1+b2+b3+b4);
-    
-    b1=smart[124];
-    b2=smart[125]<<8;
-    b3=smart[126]<<16;
-    b4=smart[127]<<24;
-    printf("SLC Min erase count is : %lu\n" , b1+b2+b3+b4);
+    b1=smart[0x58];
+    b2=smart[0x59]<<8;
+    b3=smart[0x5a]<<16;
+    b4=smart[0x5b]<<24;
+    total = b1+b2+b3+b4;
+    printf("Cumulative SLC Write Data Size in MLC/TLC Area is : %.1f GB\n\n" , (total)/10);
   
 
-    b1=smart[128];
-    b2=smart[129]<<8;
-    b3=smart[130]<<16;
-    b4=smart[131]<<24;
-    printf("SLC Avg erase count is : %lu\n\n" , b1+b2+b3+b4);
+    b1=smart[0x5c];
+    b2=smart[0x5d]<<8;
+    b3=smart[0x5e]<<16;
+    b4=smart[0x5f]<<24;
+    printf("Allowed hybrid write size exceed limit ? : %lu\n\n" , b1+b2+b3+b4);
     
-    b1=smart[132];
-    b2=smart[133]<<8;
-    b3=smart[134]<<16;
-    b4=smart[135]<<24;
-    printf("MLC Max erase count is : %lu\n" , b1+b2+b3+b4);
+    b1=smart[0x44];
+    b2=smart[0x45]<<8;
+    b3=smart[0x46]<<16;
+    b4=smart[0x47]<<24;
+    printf("Hard VCC Power drop count is : %lu\n" , b1+b2+b3+b4);
     
-    b1=smart[136];
-    b2=smart[137]<<8;
-    b3=smart[138]<<16;
-    b4=smart[139]<<24;
-    printf("MLC Min erase count is : %lu\n" , b1+b2+b3+b4);
-  
+    b1=smart[0x48];
+    b2=smart[0x49]<<8;
+    b3=smart[0x4a]<<16;
+    b4=smart[0x4b]<<24;
+    printf("Soft VCC Power drop count is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[0x4c];
+    b2=smart[0x4d]<<8;
+    b3=smart[0x4e]<<16;
+    b4=smart[0x4f]<<24;
+    printf("Failed Host Data Recovery Count After Power Loss is : %lu\n" , b1+b2+b3+b4);
+    
+    b1=smart[0x50];
+    b2=smart[0x51]<<8;
+    b3=smart[0x52]<<16;
+    b4=smart[0x53]<<24;
+    printf("Total Recovery Operations After Voltage Drop is : %lu\n" , b1+b2+b3+b4);
+    
 
-    b1=smart[140];
-    b2=smart[141]<<8;
-    b3=smart[142]<<16;
-    b4=smart[143]<<24;
-    printf("MLC Avg erase count is : %lu\n\n" , b1+b2+b3+b4);
-
-    printf("Controller Name is : %c%c%c%c\n\n" , smart[312] , smart[313] , smart[314] , smart[315]);
  
 }
 
