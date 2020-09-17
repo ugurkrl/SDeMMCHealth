@@ -19,10 +19,10 @@
 
 
 
-int read_extcsd(__u8 *ext_csd)
+int read_extcsd(__u8 *ext_csd,char location[])
 {
 	int ret = 0;
-	int fd = open("/dev/mmcblk0", O_RDWR);
+	int fd = open(location, O_RDWR);
 	struct mmc_ioc_cmd idata;
     memset(&idata, 0, sizeof(idata));
     //idata.data_timeout_ns = 0x10000000;
@@ -57,30 +57,12 @@ int mmc_62_vendor_cmd(unsigned int arg, int fd) {
 	return ret;
 }
 
-
-int main(){
-    int key;
-    printf("\tugurkrcl's eMMC Health Reader V1");
-    printf("\nSelect Device:");
-    printf("\n[0] Samsung MoviNAND 4.x");
-    printf("\n[1] Sandisk iNAND 7232\n");
-    scanf("%d",&key);
-    if(key==0){
-    read_sam();
-    }
-    if(key==1){
-    read_7232();
-    }
-return -1;	
-}
-
-void read_sam(){
+void read_sam(int fc){
     printf("\nMoviNAND Health Reader\n\n");
     int i=0;
     int x = 0;
     int y=1;
     unsigned long b1=0,b2=0,b3=0,b4 = 0;
-    int fc = open("/dev/mmcblk0", O_RDWR);
  //   printf("send vendor cmd ?\n"); //for debug purpose
  //   scanf("%d",&y);
     if(y==1){
@@ -262,14 +244,13 @@ void read_sam(){
     printf("Controller Name is : %c%c%c%c\n\n" , smart[312] , smart[313] , smart[314] , smart[315]);
  
 }
-void read_7232(){
+void read_7232(int fc){
     printf("\nSanDisk iNAND 7232 Device Report Reader\n\n");
     int i=0;
     int x = 0;
     int y=1;
     unsigned long b1=0,b2=0,b3=0,b4=0;
     float total;
-    int fc = open("/dev/mmcblk0", O_RDWR);
  //   printf("send vendor cmd ?\n"); //for debug purpose
  //   scanf("%d",&y);
     if(y==1){
@@ -452,4 +433,31 @@ void read_7232(){
 
  
 }
+
+int main(){
+    int key;
+    char location[64];
+    system("clear");
+    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    printf("\nEnter Location of eMMC:");
+    scanf("%s",&location);
+    int fc = open(location, O_RDWR);
+    system("clear");
+    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    printf("\nSelect Device:");
+    printf("\n[0] Samsung MoviNAND 4.x");
+    printf("\n[1] Sandisk iNAND 7232\n");
+    scanf("%d",&key);
+    system("clear");
+    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    if(key==0){
+    read_sam(fc);
+    }
+    if(key==1){
+    read_7232(fc);
+    }
+return -1;	
+}
+
+
 
