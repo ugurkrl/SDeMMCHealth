@@ -23,5 +23,5 @@ Compilation : gcc smart.c -o smart
 | SAMSUNG* | MoviNAND® 4.5 | 4.5 | KLMAG2GEAC-B001** |
 
 
-* : Do Not Run Code If OS Runs From SAMSUNG eMMC . Sometimes eMMC can't exit from report mode. System will hang.
-** : Tested on BPI-M1. Will try with other devices later. 
+1* : Do Not Run Code If OS Runs From SAMSUNG eMMC . Sometimes eMMC can't exit from report mode. System will hang. 
+2** : Tested on BPI-M1. Will try with other devices later. 
