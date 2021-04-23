@@ -20,7 +20,7 @@ Compilation : gcc smart.c -o smart
 
 | Vendor | Family | eMMC Version | IC Model |
 | - | - | - | - |
-| SAMSUNG* | MoviNAND® 4.5 | 4.5 | KLMAG2GEAC-0001** |
+| SAMSUNG* | MoviNAND® 4.5 | 4.5 | KLMAG2GEAC-B001** |
 
 
 * : Do Not Run Code If OS Runs From SAMSUNG eMMC . Sometimes eMMC can't exit from report mode. System will hang.
