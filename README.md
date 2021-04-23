@@ -15,4 +15,13 @@ Compilation : gcc smart.c -o smart
 | SanDisk | iNAND® 7232 | 5.1 | SDINADF4-XXG |
 | Western Digital | iNAND® EM111 | 5.1 | SDINADF4-XXG |
 
-Caution * : Do Not Run Code If OS Runs From SAMSUNG eMMC . Sometimes eMMC can't exit from report mode. System will hang.
+
+# Not Working Devices : 
+
+| Vendor | Family | eMMC Version | IC Model |
+| - | - | - | - |
+| SAMSUNG* | MoviNAND® 4.5 | 4.5 | KLMAG2GEAC-0001** |
+
+
+* : Do Not Run Code If OS Runs From SAMSUNG eMMC . Sometimes eMMC can't exit from report mode. System will hang.
+** : Tested on BPI-M1. Will try with other devices later. 
