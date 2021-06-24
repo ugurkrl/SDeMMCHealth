@@ -7,6 +7,7 @@ Compilation : gcc smart.c -o smart
 
 | Vendor | Family | eMMC Version | IC Model |
 | - | - | - | - |
+| SAMSUNG* | MoviNAND® 4.3 | 4.3 | KLM4G1EEHM-B101 |
 | SAMSUNG* | MoviNAND® 4.3 | 4.3 | KLM8G4DEHE |
 | SAMSUNG* | MoviNAND® 4.41 | 4.41 | KLM8G2FE3B |
 | SAMSUNG* | MoviNAND® 4.41 | 4.41 | KLM8G2YE4C |
