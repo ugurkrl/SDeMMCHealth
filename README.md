@@ -18,9 +18,9 @@ Compilation : gcc smart.c -o smart
 
 # Supported & Tested SD Devices :
 
-| Vendor | Model | SD Controller | SD Version |
+| Vendor | Model | SD Controller | CMD56 ARG |
 | - | - | - | - |
-| ADATA | AUSDX128GUICL10A1-RA1  | SM2705 / SM2707? | SD V6 ? |
+| ADATA | AUSDX128GUICL10A1-RA1  | SM2705 / SM2707? | 0x110005F1 |
 
 # Not Working Devices : 
 
