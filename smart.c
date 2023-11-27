@@ -16,7 +16,8 @@
 #include "mmc.h"
 #include "mmc_cmds.h"
 
-
+#define SD_GEN_CMD 56
+#define SD_BLOCK_SIZE 512
 
 
 int read_extcsd(__u8 *ext_csd,char location[])
@@ -42,6 +43,22 @@ int read_extcsd(__u8 *ext_csd,char location[])
 	return ret;
 }
 
+int sdCMD56(int fd, int cmd56_arg, unsigned char *smart) {
+  int ret = 0;
+  struct mmc_ioc_cmd idata;
+  memset(&idata, 0, sizeof(idata));
+  memset(smart, 0, sizeof(__u8) * SD_BLOCK_SIZE);
+  idata.write_flag = 0;
+  idata.opcode = SD_GEN_CMD;
+  idata.arg = cmd56_arg;
+  idata.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
+  idata.blksz = SD_BLOCK_SIZE;
+  idata.blocks = 1;
+  mmc_ioc_cmd_set_data(idata, smart);
+  ret = ioctl(fd, MMC_IOC_CMD, &idata);
+
+  return ret;
+}
 int mmc_62_vendor_cmd(unsigned int arg, int fd) {
 	int ret = 0;
 	struct mmc_ioc_cmd idata = {0};
@@ -632,28 +649,71 @@ void read_7232(int fc){
 
  
 }
+void read_adata1(int fc){
+  int fd;
+  const char *device;
+  int cmd56_arg;
+  unsigned char data_in[SD_BLOCK_SIZE];
+  int ret;
+    cmd56_arg = 0x110005f1;
+      ret = sdCMD56(fc, cmd56_arg, data_in);
+       printf("\"Flash ID\": "
+         "[\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\","
+         "\"0x%02x\"],\n",
+         data_in[0x50], data_in[0x51], data_in[0x52], data_in[0x53], data_in[0x54], data_in[0x55], data_in[0x56]);
+  printf("\"Controller Version\": %c%c%c%c%c%c%c,\n", data_in[0x58], data_in[0x59], data_in[0x5a], data_in[0x5b], data_in[0x5c], data_in[0x5d]);
+  printf("\"icVersion\": %c%c%c%c%c%c%c,\n", data_in[0x80], data_in[0x81], data_in[0x82], data_in[0x83], data_in[0x84], data_in[0x85]);
+
+
+
+  printf("\"Spare Block Count\": %d,\n", (int)((data_in[0x1e] << 8) + data_in[0x1f]));
+  printf("\"Factory Bad Block Count\": %d,\n", (int)((data_in[0x18] << 8) + data_in[0x19]));
+  printf("\"Grown Bad Block Count\": %d,\n", (int)(data_in[0x1a]));
+  printf("\"Spare SLC Block Count\": %d,\n", (int)(data_in[0x1b]));
+  printf("\"Remaning Life\": %d,\n", (int)data_in[0x46]);
+  printf("\"PECycleLife\": %ld,\n", (long)((data_in[0x44] << 8) + data_in[0x45]));
+  printf("\"Average Erase Count(DATA)\": %ld,\n", (long)((data_in[0x2c] << 24) + (data_in[0x2d] << 16) + (data_in[0x2e] << 8) + data_in[0x2f]));
+  printf("\"Minimum Erase Count(DATA)\": %ld,\n", (long)((data_in[0x20] << 24) + (data_in[0x21] << 16) + (data_in[0x22] << 8) + data_in[0x23]));
+  printf("\"Maximum Erase Count(DATA)\": %ld,\n", (long)((data_in[0x24] << 24) + (data_in[0x25] << 16) + (data_in[0x26] << 8) + data_in[0x27]));
+  printf("\"Total Erase Count(DATA)\": %ld,\n", (long)((data_in[0x28] << 24) + (data_in[0x29] << 16) + (data_in[0x2a] << 8) + data_in[0x2b]));
+  printf("\"Average Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x3c] << 24) + (data_in[0x3d] << 16) + (data_in[0x3e] << 8) + data_in[0x3f]));
+  printf("\"Minimum Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x30] << 24) + (data_in[0x31] << 16) + (data_in[0x32] << 8) + data_in[0x33]));
+  printf("\"Maximum Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x34] << 24) + (data_in[0x35] << 16) + (data_in[0x36] << 8) + data_in[0x37]));
+  printf("\"Total Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x38] << 24) + (data_in[0x39] << 16) + (data_in[0x3a] << 8) + data_in[0x3b]));
+  printf("\"RAW Card Capacity\": %ld MB,\n", (long)((data_in[0x40] << 24) + (data_in[0x41] << 16) + (data_in[0x42] << 8) + data_in[0x43]));
+  printf("\"Power ON/OFF Count\": %ld,\n", (long)((data_in[0x4c] << 24) + (data_in[0x4d] << 16) + (data_in[0x4e] << 8) + data_in[0x4f]));
+  printf("\"TLC Refresh Count\": %d,\n", (int)((data_in[0x88] << 24) + (data_in[0x89] << 16) + (data_in[0x8a] << 8) + data_in[0x8b]));
+  printf("\"SLC Refresh Count\": %d,\n", (int)((data_in[0x8C] << 24) + (data_in[0x8D] << 16) + (data_in[0x8F] << 8) + data_in[0x90]));
+  printf("\"TLC Read Reclaim\": %ld,\n", (long)((data_in[0x60] << 8) + data_in[0x61]));
+  printf("\"SLC Read Reclaim\": %ld,\n", (long)((data_in[0x62] << 8) + data_in[0x63]));
+  printf("\"Firmware Block Refresh\": %ld,\n", (long)((data_in[0x64] << 8) + data_in[0x65]));
+  printf("\"TLC Read Threshold\": %ld,\n", (long)((data_in[0x68] << 24) + (data_in[0x69] << 16) + (data_in[0x6a] << 8) + data_in[0x6b]));
+  printf("\"SLC Read Threshold\": %ld,\n", (long)((data_in[0x6c] << 24) + (data_in[0x6d] << 16) + (data_in[0x6e] << 8) + data_in[0x6f]));
+  close(fc);
+}
 
 int main(){
     int key;
     int altkey;
     char location[64];
     system("clear");
-    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nEnter Location of eMMC:");
     scanf("%s",&location);
     int fc = open(location, O_RDWR);
     system("clear");
-    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nSelect Vendor:");
     printf("\n[0] Samsung");
-    printf("\n[1] Sandisk/WD\n");
+    printf("\n[1] Sandisk/WD");
+    printf("\n[2] SD Card\n");
     scanf("%d",&key);
     system("clear");
-    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     
     if(key==0){
     system("clear");
-    printf("\tugurkrcl's eMMC Health Reader V1\n");
+    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nSelect Device:");
     printf("\n[0] MoviNAND 4.3");
     printf("\n[1] MoviNAND 4.41\n");
@@ -666,7 +726,21 @@ int main(){
     read_movi_441(fc);
         }
     }
+
+    if(key==2){
+    system("clear");
+    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
+    printf("\nSelect Device:");
+    printf("\n[0] ADATA SM2702 ARG:xx");
+    scanf("%d",&altkey);
+    system("clear");
+    if(altkey==0){
+    read_adata1(fc);
+        }
+
+    }
     
+
     if(key==1){
     read_7232(fc);
     }
