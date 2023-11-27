@@ -3,7 +3,7 @@ This simple program can read "vendor proprietary" health reports.
 Requires native mmc interface (eg : /dev/mmcblkx ; NOT /dev/sdx)
 Compilation : gcc smart.c -o smart
 
-# Supported & Tested Devices : 
+# Supported & Tested eMMC Devices :
 
 | Vendor | Family | eMMC Version | IC Model |
 | - | - | - | - |
@@ -16,6 +16,11 @@ Compilation : gcc smart.c -o smart
 | SanDisk | iNAND® 7232 | 5.1 | SDINADF4-XXG |
 | Western Digital | iNAND® EM111 | 5.1 | SDINADF4-XXG |
 
+# Supported & Tested SD Devices :
+
+| Vendor | Model | SD Controller | SD Version |
+| - | - | - | - |
+| ADATA | AUSDX128GUICL10A1-RA1  | SM2705 / SM2707? | SD V6 ? |
 
 # Not Working Devices : 
 
