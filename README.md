@@ -1,4 +1,4 @@
-# eMMC Health Reader
+# SDeMMC Health Reader
 This simple program can read "vendor proprietary" health reports.
 Requires native mmc interface (eg : /dev/mmcblkx ; NOT /dev/sdx)
 Compilation : gcc smart.c -o smart
