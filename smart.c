@@ -18,7 +18,7 @@
 
 #define SD_GEN_CMD 56
 #define SD_BLOCK_SIZE 512
-
+   __u8 data_in[512];
 
 int read_extcsd(__u8 *ext_csd,char location[])
 {
@@ -107,7 +107,7 @@ void read_movi_43(int fc){
     if(x==0)printf("[OK] SMART Report Command\n");
    }
     int ret=0;
-   __u8 data_in[512];
+
     struct mmc_ioc_cmd idata;
 	memset(&idata, 0, sizeof(idata));
 	memset(data_in, 0, sizeof(__u8) * 512);
@@ -282,7 +282,6 @@ void read_movi_441(int fc){
     if(x==0)printf("[OK] SMART Report Command\n");
    }
     int ret=0;
-   __u8 data_in[512];
     struct mmc_ioc_cmd idata;
 	memset(&idata, 0, sizeof(idata));
 	memset(data_in, 0, sizeof(__u8) * 512);
@@ -492,7 +491,6 @@ void read_7232(int fc){
 	if(x==b1)printf("[OK] SMART Report Command\n");
    }
     int ret=0;
-   __u8 data_in[512];
     struct mmc_ioc_cmd idata;
 	memset(&idata, 0, sizeof(idata));
 	memset(data_in, 0, sizeof(__u8) * 512);
@@ -671,7 +669,7 @@ void read_adata1(int fc){
   int fd;
   const char *device;
   int cmd56_arg;
-  unsigned char data_in[SD_BLOCK_SIZE];
+
   int ret;
     cmd56_arg = 0x110005f1;
       ret = sdCMD56(fc, cmd56_arg, data_in);
@@ -714,7 +712,7 @@ void read_hynix1(int fc){
   int fd;
   const char *device;
   int cmd_arg;
-  unsigned char data_in[SD_BLOCK_SIZE];
+
   int ret;
     cmd_arg = 0x53454852;
       ret = mmcCMD8(fc, cmd_arg, data_in);
