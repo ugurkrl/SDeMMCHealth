@@ -718,27 +718,19 @@ void read_hynix1(int fc){
   int ret;
     cmd_arg = 0x53454852;
       ret = mmcCMD8(fc, cmd_arg, data_in);
-       printf("\"Flash ID\": "
-         "[\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\","
-         "\"0x%02x\"],\n",
-         data_in[0x50], data_in[0x51], data_in[0x52], data_in[0x53], data_in[0x54], data_in[0x55], data_in[0x56]);
-  printf("\"Controller Version\": %c%c%c%c%c%c%c,\n", data_in[0x58], data_in[0x59], data_in[0x5a], data_in[0x5b], data_in[0x5c], data_in[0x5d]);
-  printf("\"icVersion\": %c%c%c%c%c%c%c,\n", data_in[0x80], data_in[0x81], data_in[0x82], data_in[0x83], data_in[0x84], data_in[0x85]);
 
-
-
-  printf("\"Spare Block Count\": %d,\n", (int)((data_in[0x1e] << 8) + data_in[0x1f]));
-  printf("\"Factory Bad Block Count\": %d,\n", (int)((data_in[0x18] << 8) + data_in[0x19]));
-  printf("\"Grown Bad Block Count\": %d,\n", (int)(data_in[0x1a]));
-  printf("\"Spare SLC Block Count\": %d,\n", (int)(data_in[0x1b]));
-  printf("\"Remaning Life\": %d,\n", (int)data_in[0x46]);
-  printf("\"PECycleLife\": %ld,\n", (long)((data_in[0x44] << 8) + data_in[0x45]));
-  printf("\"Average Erase Count(DATA)\": %ld,\n", (long)((data_in[0x2c] << 24) + (data_in[0x2d] << 16) + (data_in[0x2e] << 8) + data_in[0x2f]));
-  printf("\"Minimum Erase Count(DATA)\": %ld,\n", (long)((data_in[0x20] << 24) + (data_in[0x21] << 16) + (data_in[0x22] << 8) + data_in[0x23]));
-  printf("\"Maximum Erase Count(DATA)\": %ld,\n", (long)((data_in[0x24] << 24) + (data_in[0x25] << 16) + (data_in[0x26] << 8) + data_in[0x27]));
-  printf("\"Total Erase Count(DATA)\": %ld,\n", (long)((data_in[0x28] << 24) + (data_in[0x29] << 16) + (data_in[0x2a] << 8) + data_in[0x2b]));
-  printf("\"Average Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x3c] << 24) + (data_in[0x3d] << 16) + (data_in[0x3e] << 8) + data_in[0x3f]));
-  printf("\"Minimum Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x30] << 24) + (data_in[0x31] << 16) + (data_in[0x32] << 8) + data_in[0x33]));
+  printf("\"Initial Bad Block Count\": %d,\n", (int)((data_in[271] << 8) + data_in[270]));
+  printf("\"Run Time Bad Block Count\": %d,\n", (int)((data_in[273] << 8) + data_in[272]));
+  printf("\"Maximum Erase Count\": %d,\n", (int)((data_in[275] << 8) + data_in[274]));
+  printf("\"Minimum Erase Count Count\": %d,\n", (int)((data_in[277] << 8) + data_in[276]));
+  printf("\"Average Erase Count\": %d,\n", (int)data_in[0x46]);
+  printf("\"Read Reclaim Count\": %ld,\n", (long)((data_in[0x44] << 8) + data_in[0x45]));
+  printf("\"SPO Count\": %ld,\n", (long)((data_in[0x2c] << 24) + (data_in[0x2d] << 16) + (data_in[0x2e] << 8) + data_in[0x2f]));
+  printf("\"Cumulative Written Data Size\": %ld,\n", (long)((data_in[0x20] << 24) + (data_in[0x21] << 16) + (data_in[0x22] << 8) + data_in[0x23]));
+  printf("\"LVD Count\": %ld,\n", (long)((data_in[0x24] << 24) + (data_in[0x25] << 16) + (data_in[0x26] << 8) + data_in[0x27]));
+  printf("\"FFU Count\": %ld,\n", (long)((data_in[0x28] << 24) + (data_in[0x29] << 16) + (data_in[0x2a] << 8) + data_in[0x2b]));
+  printf("\"Reserved Blocks\": %ld,\n", (long)((data_in[0x3c] << 24) + (data_in[0x3d] << 16) + (data_in[0x3e] << 8) + data_in[0x3f]));
+  printf("\"Cumulative Read Data Size\": %ld,\n", (long)((data_in[0x30] << 24) + (data_in[0x31] << 16) + (data_in[0x32] << 8) + data_in[0x33]));
   printf("\"Maximum Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x34] << 24) + (data_in[0x35] << 16) + (data_in[0x36] << 8) + data_in[0x37]));
   printf("\"Total Erase Count(SYSTEM)\": %ld,\n", (long)((data_in[0x38] << 24) + (data_in[0x39] << 16) + (data_in[0x3a] << 8) + data_in[0x3b]));
   printf("\"RAW Card Capacity\": %ld MB,\n", (long)((data_in[0x40] << 24) + (data_in[0x41] << 16) + (data_in[0x42] << 8) + data_in[0x43]));
