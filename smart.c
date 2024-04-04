@@ -802,7 +802,12 @@ int main(){
     }
     
 
-    
+    printf("Enter '1' if you want to print all SMART Block : ");
+   scanf("%d",&i); debug 2                                                          printf("\n");
+    if(i==1){
+        for(int i=0;i<512;i++){
+        printf("Data Slice %d : %x\n",i,smart[i]);}
+		printf("\n");}
 return -1;	
 }
 
