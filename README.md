@@ -13,6 +13,7 @@ Compilation : gcc smart.c -o smart
 | SAMSUNG* | MoviNAND® 4.41 | 4.41 | KLM8G2YE4C |
 | SAMSUNG* | MoviNAND® 4.41 | 4.41 | KMSJS000KA |
 | SAMSUNG* | MoviNAND® 4.5 | 4.5 | KMVTU000LM |
+| HYNIX | hB8aP> | 5.1 | H26M62002JPR |
 | SanDisk | iNAND® 7232 | 5.1 | SDINADF4-XXG |
 | Western Digital | iNAND® EM111 | 5.1 | SDINADF4-XXG |
 
