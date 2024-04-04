@@ -801,7 +801,7 @@ int main(){
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
-    read_adata1(fc);
+    read_hynix1(fc);
         }
     }
 	
