@@ -716,7 +716,7 @@ void read_hynix1(int fc){
   int ret;
     cmd_arg = 0x53454852;
       ret = mmcCMD8(fc, cmd_arg, data_in);
-
+  printf("\tugurkrcl's SDeMMC Health Reader V1.1\n\n");
   printf("\"Initial Bad Block Count\": %d,\n", (int)((data_in[271] << 8) + data_in[270]));
   printf("\"Run Time Bad Block Count\": %d,\n", (int)((data_in[273] << 8) + data_in[272]));
   printf("\"Maximum Erase Count\": %d,\n", (int)((data_in[275] << 8) + data_in[274]));
@@ -724,11 +724,11 @@ void read_hynix1(int fc){
   printf("\"Average Erase Count\": %d,\n", (int)((data_in[279] << 8) + data_in[278]));
   printf("\"Read Reclaim Count\": %ld,\n", (int)((data_in[281] << 8) + data_in[280]));
   printf("\"SPO Count\": %ld,\n", (long)((data_in[285] << 24) + (data_in[284] << 16) + (data_in[283] << 8) + data_in[282]));
-  printf("\"Cumulative Written Data Size\": %ld,\n", (long)((data_in[289] << 24) + (data_in[288] << 16) + (data_in[287] << 8) + data_in[286]));
+  printf("\"Cumulative Written Data Size\": %0.1f GB,\n", (float)((data_in[289] << 24) + (data_in[288] << 16) + (data_in[287] << 8) + data_in[286])/10);
   printf("\"LVD Count\": %ld,\n", (long)((data_in[293] << 24) + (data_in[292] << 16) + (data_in[291] << 8) + data_in[290]));
   printf("\"FFU Count\": %d,\n", (int)((data_in[295] << 8) + data_in[294]));
   printf("\"Reserved Blocks\": %d,\n", (int)((data_in[297] << 8) + data_in[296]));
-  printf("\"Cumulative Read Data Size\": %ld,\n", (long)((data_in[301] << 24) + (data_in[300] << 16) + (data_in[299] << 8) + data_in[298]));
+  printf("\"Cumulative Read Data Size\": %0.1f GB,\n", (float)((data_in[301] << 24) + (data_in[300] << 16) + (data_in[299] << 8) + data_in[298])/10);
 
   close(fc);
 }
