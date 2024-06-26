@@ -359,7 +359,8 @@ int main(){
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nSelect Device:");
     printf("\n[0] MoviNAND 4.3");
-    printf("\n[1] MoviNAND 4.41\n");
+    printf("\n[1] MoviNAND 4.41");
+    printf("\n[2] MoviNAND SD Card\n");
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
@@ -367,6 +368,9 @@ int main(){
         }
     if(altkey==1){
     read_movi_441(fc);
+        }
+    if(altkey==2){
+    read_movi_sd(fc);
         }
     }
 
