@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "mmc_cmds.h": "c",
+        "mmc.h": "c"
+    }
+}
