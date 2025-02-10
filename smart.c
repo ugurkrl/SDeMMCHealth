@@ -272,7 +272,7 @@ void read_adata1(int fc){
   int cmd56_arg;
 
   int ret;
-    cmd56_arg = 0x110005f1;
+    cmd56_arg = 0x110005F1;
       ret = sdCMD56(fc, cmd56_arg, data_in);
        printf("\"Flash ID\": "
          "[\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\","
