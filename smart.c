@@ -84,7 +84,7 @@ void read_7232(int fc){
     int i=0;
     int x = 0;
     int y=1;
-    unsigned long b1=0,b2=0,b3=0,b4=0;
+    unsigned int b1=0,b2=0,b3=0,b4=0;
     float total;
  //   printf("send vendor cmd ?\n"); //for debug purpose
  //   scanf("%d",&y);
@@ -117,73 +117,73 @@ void read_7232(int fc){
     b2=data_in[0x61]<<8;
     b3=data_in[0x62]<<16;
     b4=data_in[0x63]<<24;
-    printf("Average PE Cycles of Hybrid Area  is : %lu\n" , b1+b2+b3+b4);
+    printf("Average PE Cycles of Hybrid Area  is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[0];
     b2=data_in[1]<<8;
     b3=data_in[2]<<16;
     b4=data_in[3]<<24;
-    printf("Average PE Cycles of Enhanced Area is : %lu\n" , b1+b2+b3+b4);
+    printf("Average PE Cycles of Enhanced Area is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[4];
     b2=data_in[5]<<8;
     b3=data_in[6]<<16;
     b4=data_in[7]<<24;
-    printf("Average PE Cycles of SLC Area  is : %lu\n" , b1+b2+b3+b4);
+    printf("Average PE Cycles of SLC Area  is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[8];
     b2=data_in[9]<<8;
     b3=data_in[10]<<16;
     b4=data_in[11]<<24;
-    printf("Average PE Cycles of MLC/TLC Area  is : %lu\n\n" , b1+b2+b3+b4);
+    printf("Average PE Cycles of MLC/TLC Area  is : %u\n\n" , b1+b2+b3+b4);
     
     b1=data_in[12];
     b2=data_in[13]<<8;
     b3=data_in[14]<<16;
     b4=data_in[15]<<24;
-    printf("Read Reclaim Count of Enhanced Area is : %lu\n" , b1+b2+b3+b4);
+    printf("Read Reclaim Count of Enhanced Area is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[16];
     b2=data_in[17]<<8;
     b3=data_in[18]<<16;
     b4=data_in[19]<<24;
-    printf("Read Reclaim Count of SLC Area is : %lu\n" , b1+b2+b3+b4);
+    printf("Read Reclaim Count of SLC Area is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[20];
     b2=data_in[21]<<8;
     b3=data_in[22]<<16;
     b4=data_in[23]<<24;
-    printf("Read Reclaim Count of MLC/TLC Area is : %lu\n\n" , b1+b2+b3+b4);
+    printf("Read Reclaim Count of MLC/TLC Area is : %u\n\n" , b1+b2+b3+b4);
     
     b1=data_in[0x18];
     b2=data_in[0x19]<<8;
     b3=data_in[0x1a]<<16;
     b4=data_in[0x1b]<<24;
-    printf("Manufactory Bad Block Count is : %lu\n" , b1+b2+b3+b4);
+    printf("Manufactory Bad Block Count is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[28];
     b2=data_in[29]<<8;
     b3=data_in[30]<<16;
     b4=data_in[31]<<24;
-    printf("Runtime Enhanced Area Bad Block Count is : %lu\n" , b1+b2+b3+b4);
+    printf("Runtime Enhanced Area Bad Block Count is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[32];
     b2=data_in[33]<<8;
     b3=data_in[34]<<16;
     b4=data_in[35]<<24;
-    printf("Runtime SLC Area Bad Block Count is : %lu\n" , b1+b2+b3+b4);
+    printf("Runtime SLC Area Bad Block Count is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[36];
     b2=data_in[37]<<8;
     b3=data_in[38]<<16;
     b4=data_in[39]<<24;
-    printf("Runtime MLC/TLC Area Bad Block Count is : %lu\n\n" , b1+b2+b3+b4);
+    printf("Runtime MLC/TLC Area Bad Block Count is : %u\n\n" , b1+b2+b3+b4);
   
     b1=data_in[40];
     b2=data_in[41]<<8;
     b3=data_in[42]<<16;
     b4=data_in[43]<<24;
-    printf("Patch Trial Count is : %lu\n" , b1+b2+b3+b4);
+    printf("Patch Trial Count is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[0x2c];
     b2=data_in[0x2d];
@@ -238,31 +238,31 @@ void read_7232(int fc){
     b2=data_in[0x5d]<<8;
     b3=data_in[0x5e]<<16;
     b4=data_in[0x5f]<<24;
-    printf("Allowed hybrid write size exceed limit ? : %lu\n\n" , b1+b2+b3+b4);
+    printf("Allowed hybrid write size exceed limit ? : %u\n\n" , b1+b2+b3+b4);
     
     b1=data_in[0x44];
     b2=data_in[0x45]<<8;
     b3=data_in[0x46]<<16;
     b4=data_in[0x47]<<24;
-    printf("Hard VCC Power drop count is : %lu\n" , b1+b2+b3+b4);
+    printf("Hard VCC Power drop count is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[0x48];
     b2=data_in[0x49]<<8;
     b3=data_in[0x4a]<<16;
     b4=data_in[0x4b]<<24;
-    printf("Soft VCC Power drop count is : %lu\n" , b1+b2+b3+b4);
+    printf("Soft VCC Power drop count is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[0x4c];
     b2=data_in[0x4d]<<8;
     b3=data_in[0x4e]<<16;
     b4=data_in[0x4f]<<24;
-    printf("Failed Host Data Recovery Count After Power Loss is : %lu\n" , b1+b2+b3+b4);
+    printf("Failed Host Data Recovery Count After Power Loss is : %u\n" , b1+b2+b3+b4);
     
     b1=data_in[0x50];
     b2=data_in[0x51]<<8;
     b3=data_in[0x52]<<16;
     b4=data_in[0x53]<<24;
-    printf("Total Recovery Operations After Voltage Drop is : %lu\n" , b1+b2+b3+b4);
+    printf("Total Recovery Operations After Voltage Drop is : %u\n" , b1+b2+b3+b4);
     
 
  
@@ -279,8 +279,8 @@ void read_adata1(int fc){
          "[\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\","
          "\"0x%02x\"],\n",
          data_in[0x50], data_in[0x51], data_in[0x52], data_in[0x53], data_in[0x54], data_in[0x55], data_in[0x56]);
-  printf("\"Controller Version\": %c%c%c%c%c%c%c,\n", data_in[0x58], data_in[0x59], data_in[0x5a], data_in[0x5b], data_in[0x5c], data_in[0x5d]);
-  printf("\"icVersion\": %c%c%c%c%c%c%c,\n", data_in[0x80], data_in[0x81], data_in[0x82], data_in[0x83], data_in[0x84], data_in[0x85]);
+  printf("\"Controller Version\": %c%c%c%c%c%c,\n", data_in[0x58], data_in[0x59], data_in[0x5a], data_in[0x5b], data_in[0x5c], data_in[0x5d]);
+  printf("\"icVersion\": %c%c%c%c%c%c,\n", data_in[0x80], data_in[0x81], data_in[0x82], data_in[0x83], data_in[0x84], data_in[0x85]);
 
 
 
@@ -324,7 +324,7 @@ void read_hynix1(int fc){
   printf("\"Maximum Erase Count\": %d,\n", (int)((data_in[275] << 8) + data_in[274]));
   printf("\"Minimum Erase Count Count\": %d,\n", (int)((data_in[277] << 8) + data_in[276]));
   printf("\"Average Erase Count\": %d,\n", (int)((data_in[279] << 8) + data_in[278]));
-  printf("\"Read Reclaim Count\": %ld,\n", (int)((data_in[281] << 8) + data_in[280]));
+  printf("\"Read Reclaim Count\": %d,\n", (int)((data_in[281] << 8) + data_in[280]));
   printf("\"SPO Count\": %ld,\n", (long)((data_in[285] << 24) + (data_in[284] << 16) + (data_in[283] << 8) + data_in[282]));
   printf("\"Cumulative Written Data Size\": %0.1f GB,\n", (float)((data_in[289] << 24) + (data_in[288] << 16) + (data_in[287] << 8) + data_in[286])/10);
   printf("\"LVD Count\": %ld,\n", (long)((data_in[293] << 24) + (data_in[292] << 16) + (data_in[291] << 8) + data_in[290]));
@@ -342,7 +342,7 @@ int main(){
     system("clear");
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nEnter Location of eMMC:");
-    scanf("%s",&location);
+    scanf("%s",location);
     int fc = open(location, O_RDWR);
     system("clear");
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
