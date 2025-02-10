@@ -368,10 +368,10 @@ int main(){
     read_movi_43(fc, smart_block);
         }
     if(altkey==1){
-    read_movi_441(fc);
+    read_movi_441(fc, smart_block);
         }
     if(altkey==2){
-    read_movi_sd(fc);
+    read_movi_sd(fc, smart_block);
         }
     }
 
