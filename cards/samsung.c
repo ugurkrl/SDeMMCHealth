@@ -16,12 +16,11 @@
 #include "../mmc.h"
 #include "../mmc_cmds.h"
 #include "../cmds.c"
-void read_movi_43(int fc){
+void read_movi_43(int fc, __u8 data_in[512]){
     printf("\nMoviNAND Health Reader\n\n");
     int i=0;
     int x = 0;
     int y=1;
-    __u8 data_in[512];
     unsigned long b1=0,b2=0,b3=0,b4 = 0;
  //   printf("send vendor cmd ?\n"); //for debug purpose
  //   scanf("%d",&y);

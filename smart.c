@@ -19,6 +19,7 @@
 #define SD_GEN_CMD 56
 #define SD_BLOCK_SIZE 512
    __u8 data_in[512];
+   __u8 smart_block[512];
 
 int read_extcsd(__u8 *ext_csd,char location[])
 {
@@ -364,7 +365,7 @@ int main(){
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
-    read_movi_43(fc);
+    read_movi_43(fc, smart_block);
         }
     if(altkey==1){
     read_movi_441(fc);
@@ -413,7 +414,7 @@ int main(){
             if(i%16==0){
                 printf("\n %d: ",i);
             }
-        printf("%x ",data_in[i]);
+        printf("%x ",smart_block[i]);
 
         }
 		printf("\n");}
