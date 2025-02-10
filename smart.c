@@ -408,8 +408,14 @@ int main(){
     printf("Enter '1' if you want to print all SMART Block : ");
    scanf("%d",&key);                                                    printf("\n");
     if(key==1){
+        
         for(int i=0;i<512;i++){
-        printf("Data Slice %d : %x\n",i,data_in[i]);}
+            if(i%16==0){
+                printf("\n %d: ",i);
+            }
+        printf("%x ",data_in[i]);
+
+        }
 		printf("\n");}
 return -1;	
 }
