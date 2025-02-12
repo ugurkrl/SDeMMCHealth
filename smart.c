@@ -311,30 +311,7 @@ void read_adata1(int fc){
   close(fc);
 }
 
-void read_hynix1(int fc){
-  int fd;
-  const char *device;
-  int cmd_arg;
 
-  int ret;
-    cmd_arg = 0x53454852;
-      ret = mmcCMD8(fc, cmd_arg, data_in);
-  printf("\tugurkrcl's SDeMMC Health Reader V1.1\n\n");
-  printf("\"Initial Bad Block Count\": %d,\n", (int)((data_in[271] << 8) + data_in[270]));
-  printf("\"Run Time Bad Block Count\": %d,\n", (int)((data_in[273] << 8) + data_in[272]));
-  printf("\"Maximum Erase Count\": %d,\n", (int)((data_in[275] << 8) + data_in[274]));
-  printf("\"Minimum Erase Count Count\": %d,\n", (int)((data_in[277] << 8) + data_in[276]));
-  printf("\"Average Erase Count\": %d,\n", (int)((data_in[279] << 8) + data_in[278]));
-  printf("\"Read Reclaim Count\": %d,\n", (int)((data_in[281] << 8) + data_in[280]));
-  printf("\"SPO Count\": %ld,\n", (long)((data_in[285] << 24) + (data_in[284] << 16) + (data_in[283] << 8) + data_in[282]));
-  printf("\"Cumulative Written Data Size\": %0.1f GB,\n", (float)((data_in[289] << 24) + (data_in[288] << 16) + (data_in[287] << 8) + data_in[286])/10);
-  printf("\"LVD Count\": %ld,\n", (long)((data_in[293] << 24) + (data_in[292] << 16) + (data_in[291] << 8) + data_in[290]));
-  printf("\"FFU Count\": %d,\n", (int)((data_in[295] << 8) + data_in[294]));
-  printf("\"Reserved Blocks\": %d,\n", (int)((data_in[297] << 8) + data_in[296]));
-  printf("\"Cumulative Read Data Size\": %0.1f GB,\n", (float)((data_in[301] << 24) + (data_in[300] << 16) + (data_in[299] << 8) + data_in[298])/10);
-
-  close(fc);
-}
 
 int main(){
     int key;
@@ -384,11 +361,15 @@ int main(){
     system("clear");
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nSelect Device:");
-    printf("\n[0] Hynix V1 hB8aP");
+    printf("\n[0] Hynix Old");
+    printf("\n[1] Hynix New");
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
     read_hynixold(fc,smart_block);
+    }
+    if(altkey==1){
+    read_hynixnew(fc,smart_block);
     }
     }
 	
