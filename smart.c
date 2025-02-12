@@ -365,13 +365,13 @@ int main(){
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
-    read_movi_43(fc, smart_block);
+    read_movi(fc, smart_block,43);
         }
     if(altkey==1){
-    read_movi_441(fc, smart_block);
+    read_movi(fc, smart_block,441);
         }
     if(altkey==2){
-    read_movi_sd(fc, smart_block);
+    read_movi(fc, smart_block,64);
         }
     }
 
