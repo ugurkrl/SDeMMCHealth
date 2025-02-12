@@ -16,11 +16,12 @@
 #include "mmc.h"
 #include "mmc_cmds.h"
 #include "cards/samsung.c"
+#include "cards/hynix.c"
 #define SD_GEN_CMD 56
 #define SD_BLOCK_SIZE 512
    __u8 data_in[512];
    __u8 smart_block[512];
-
+int mmcCMD8(int fd, int arg, unsigned char *smart);
 int read_extcsd(__u8 *ext_csd,char location[])
 {
 	int ret = 0;
@@ -387,8 +388,8 @@ int main(){
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
-    read_hynix1(fc);
-        }
+    read_hynixold(fc,smart_block);
+    }
     }
 	
 	

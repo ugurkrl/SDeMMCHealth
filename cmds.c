@@ -31,3 +31,14 @@ int mmc_62_vendor_cmd(unsigned int arg, int fd) {
 	return ret;
 }
  
+ int hycmd60(int fd, int arg) {
+  int ret = 0;
+  struct mmc_ioc_cmd idata;
+  idata.write_flag = 1;
+  idata.opcode = 60;
+  idata.arg = arg;
+  idata.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
+  ret = ioctl(fd, MMC_IOC_CMD, &idata);
+
+  return ret;
+}
