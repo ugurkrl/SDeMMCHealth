@@ -18,9 +18,21 @@
 #include "cards/samsung.c"
 #include "cards/hynix.c"
 #define SD_GEN_CMD 56
+#define MMC_DATA_WRITE	(1 << 8)
+#define MMC_DATA_READ	(1 << 9)
 #define SD_BLOCK_SIZE 512
    __u8 data_in[512];
    __u8 smart_block[512];
+   struct tsb_cmd_format {
+	unsigned char sub_cmd_no;		/* sub command no. */
+	unsigned char reserved1;		/* reserved */
+	unsigned char reserved2;		/* reserved */
+	unsigned char reserved3;		/* reserved */
+	unsigned char pwd1;			/* reserved */
+	unsigned char pwd2;			/* reserved */
+	unsigned char pwd3;			/* reserved */
+	unsigned char pwd4;			/* reserved */
+};
 int mmcCMD8(int fd, int arg, unsigned char *smart);
 int read_extcsd(__u8 *ext_csd,char location[])
 {
@@ -45,20 +57,33 @@ int read_extcsd(__u8 *ext_csd,char location[])
 	return ret;
 }
 
-int sdCMD56(int fd, int cmd56_arg, unsigned char *smart) {
+int sdCMD56(int fd, int cmd56_arg, void *buf,int mode) {
+__u8 smartpwd_cmd[8] = { 0x07, 0x00, 0x00, 0x00, 0x26, 0xE9,
+		0x01, 0xEB };
+        //0x00175063
   int ret = 0;
+  int index=0;
+	index &= 0x7F;
+  void *smart;
   struct mmc_ioc_cmd idata;
-  memset(&idata, 0, sizeof(idata));
-  memset(smart, 0, sizeof(__u8) * SD_BLOCK_SIZE);
-  idata.write_flag = 0;
-  idata.opcode = SD_GEN_CMD;
-  idata.arg = cmd56_arg;
-  idata.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
-  idata.blksz = SD_BLOCK_SIZE;
-  idata.blocks = 1;
-  mmc_ioc_cmd_set_data(idata, smart);
-  ret = ioctl(fd, MMC_IOC_CMD, &idata);
+  struct mmc_ioc_cmd cmd;
+  struct tsb_cmd_format *tsb_cmd;
+  smart = tsb_cmd = malloc(512);
+  if (!mode)
+		memcpy(smart, smartpwd_cmd, 8);
+  cmd.opcode =  SD_GEN_CMD;
+	cmd.arg = (0 << 16) | (0 << 8) | (index << 1) | mode;
+	cmd.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
+  // ret = ioctl(fd, MMC_IOC_CMD, &cmd);
+    cmd.write_flag=!mode;
+ 
+ // cmd.flags =  (!mode) ? MMC_DATA_WRITE : MMC_DATA_READ;
+  cmd.blksz = SD_BLOCK_SIZE;
+  cmd.blocks = 1;
+  mmc_ioc_cmd_set_data(cmd, smart);
+  ret = ioctl(fd, MMC_IOC_CMD, &cmd);
 
+    memcpy(buf, smart, 512);
   return ret;
 }
 
@@ -268,14 +293,15 @@ void read_7232(int fc){
 
  
 }
-void read_adata1(int fc){
+void read_adata1(int fc,__u8 data_in[512]){
   int fd;
   const char *device;
   int cmd56_arg;
 
   int ret;
-    cmd56_arg = 0x110005F1;
-      ret = sdCMD56(fc, cmd56_arg, data_in);
+
+      ret = sdCMD56(fc, cmd56_arg, data_in,0);
+      ret = sdCMD56(fc, cmd56_arg, data_in,1);
        printf("\"Flash ID\": "
          "[\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\","
          "\"0x%02x\"],\n",
@@ -308,6 +334,13 @@ void read_adata1(int fc){
   printf("\"Firmware Block Refresh\": %ld,\n", (long)((data_in[0x64] << 8) + data_in[0x65]));
   printf("\"TLC Read Threshold\": %ld,\n", (long)((data_in[0x68] << 24) + (data_in[0x69] << 16) + (data_in[0x6a] << 8) + data_in[0x6b]));
   printf("\"SLC Read Threshold\": %ld,\n", (long)((data_in[0x6c] << 24) + (data_in[0x6d] << 16) + (data_in[0x6e] << 8) + data_in[0x6f]));
+  for(int i=0;i<512;i++){
+            if(i%16==0){
+                printf("\n %d: ",i);
+            }
+        printf("%x ",data_in[i]);
+
+        }
   close(fc);
 }
 
@@ -382,7 +415,7 @@ int main(){
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
-    read_adata1(fc);
+    read_adata1(fc,smart_block);
         }
 
     }
