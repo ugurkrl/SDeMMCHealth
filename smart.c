@@ -17,6 +17,7 @@
 #include "mmc_cmds.h"
 #include "cards/samsung.c"
 #include "cards/hynix.c"
+#include "cards/tsb.c"
 #define SD_GEN_CMD 56
 #define MMC_DATA_WRITE	(1 << 8)
 #define MMC_DATA_READ	(1 << 9)
@@ -361,7 +362,8 @@ int main(){
     printf("\n[0] Samsung");
     printf("\n[1] Sandisk/WD");
 	printf("\n[2] Hynix");
-    printf("\n[3] SD Card\n");
+    printf("\n[3] Toshiba/Kioxia");
+    printf("\n[4] SD Card\n");
     scanf("%d",&key);
     system("clear");
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
@@ -406,8 +408,14 @@ int main(){
     }
     }
 	
-	
-    if(key==3){
+	if(key==3){
+    system("clear");
+    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
+    system("clear");
+    read_tsb(fc,smart_block);
+
+    }
+    if(key==4){
     system("clear");
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nSelect Device:");
