@@ -4,20 +4,37 @@ Requires native mmc interface (eg : /dev/mmcblkx ; NOT /dev/sdx)
 Compilation : gcc smart.c -o smart
 
 # Supported & Tested eMMC Devices :
-
-| Vendor | Family | eMMC Version | IC Model |
+# Samsung old MoviNAND Report:
+| ID | eMMC Version | IC Model | Nand Type |
 | - | - | - | - |
-| SAMSUNG* | MoviNAND® 4.3 | 4.3 | KLM4G1EEHM-B101 |
-| SAMSUNG* | MoviNAND® 4.3 | 4.3 | KLM8G4DEHE |
-| SAMSUNG* | MoviNAND® 4.41 | 4.41 | KLM8G2FE3B |
-| SAMSUNG* | MoviNAND® 4.41 | 4.41 | KLM8G2YE4C |
-| SAMSUNG* | MoviNAND® 4.41 | 4.41 | KMSJS000KA |
-| SAMSUNG* | MoviNAND® 4.5 | 4.5 | KMVTU000LM |
-| HYNIX | hB8aP> | 5.1 | H26M62002JPR |
-| SanDisk | iNAND® 7232 | 5.1 | SDINADF4-XXG |
-| Western Digital | iNAND® EM111 | 5.1 | SDINADF4-XXG |
+| M4G1GM | 4.3 | KLM4G1EEHM | 32nm MLC |
+| M8G4DE | 4.3 | KLM8G4DEHE | 32nm MLC |
+| M8G2FB | 4.41 | KLM8G2FE3B | 21nm MLC |
+| M8GYE4 | 4.41 | KLM8G2YE4C | 21nm TLC |
+| SJS00A | 4.41 | KMSJS000KA | 21nm MLC |
+| VTU00M | 4.5 | KMVTU000LM | 21nm MLC |
+| Samsung Evo+ 32G | SD | MB-MC32D | 16nm TLC |
+# Hynix old (V0) Report:
+| ID | eMMC Version | IC Model |
+| - | - | - |
 
-# Supported & Tested SD Devices :
+# Hynix new (V1) Report:
+| ID | eMMC Version | IC Model | Nand Type |
+| - | - | - | - |
+| hB8aP> | 5.1 | H26M62002JPR | 1znm MLC |
+
+# Toshiba Report:
+| ID | eMMC Version | IC Model |
+| - | - | - |
+
+# WD/Sandisk Report:
+| ID | eMMC Version | IC Model |
+| - | - | - |
+
+| iNAND® 7232 | 5.1 | SDINADF4-XXG |
+| iNAND® EM111 | 5.1 | SDINADF4-XXG |
+
+# SMI SD Cards :
 
 | Vendor | Model | SD Controller | CMD56 ARG |
 | - | - | - | - |
