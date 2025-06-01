@@ -18,6 +18,7 @@
 #include "cards/samsung.c"
 #include "cards/hynix.c"
 #include "cards/tsb.c"
+#include "cards/generic56.c"
 #define SD_GEN_CMD 56
 #define MMC_DATA_WRITE	(1 << 8)
 #define MMC_DATA_READ	(1 << 9)
@@ -297,12 +298,11 @@ void read_7232(int fc){
 void read_adata1(int fc,__u8 data_in[512]){
   int fd;
   const char *device;
-  int cmd56_arg;
+  int cmd56_arg=0x110005F1;
 
   int ret;
 
-      ret = sdCMD56(fc, cmd56_arg, data_in,0);
-      ret = sdCMD56(fc, cmd56_arg, data_in,1);
+      ret = generic56(fc, cmd56_arg, data_in);
        printf("\"Flash ID\": "
          "[\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\",\"0x%02x\","
          "\"0x%02x\"],\n",
@@ -363,7 +363,8 @@ int main(){
     printf("\n[1] Sandisk/WD");
 	printf("\n[2] Hynix");
     printf("\n[3] Toshiba/Kioxia");
-    printf("\n[4] SD Card\n");
+    printf("\n[4] Generic CMD56 eMMC ");
+    printf("\n[5] SD Card\n");
     scanf("%d",&key);
     system("clear");
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
@@ -419,11 +420,11 @@ int main(){
     system("clear");
     printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
     printf("\nSelect Device:");
-    printf("\n[0] ADATA SM2707 ARG:0x110005F1 ");
+    printf("\n[0] ISOCOM ARG:0x110005F1 ");
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
-    read_adata1(fc,smart_block);
+    isocom(fc,smart_block);
         }
 
     }

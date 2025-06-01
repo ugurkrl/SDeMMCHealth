@@ -78,3 +78,20 @@ int tsbCMD56(int fd, __u8 page, void *buf,int mode) {
 
   return ret;
 }
+
+int generic56(int fd, int cmd56_arg, void *buf) {
+  int ret = 0;
+  struct mmc_ioc_cmd idata;
+  memset(&idata, 0, sizeof(idata));
+  memset(buf, 0, sizeof(__u8) * 512);
+  idata.write_flag = 0;
+  idata.opcode = 56;
+  idata.arg = cmd56_arg;
+  idata.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
+  idata.blksz = 512;
+  idata.blocks = 1;
+  mmc_ioc_cmd_set_data(idata, buf);
+  ret = ioctl(fd, MMC_IOC_CMD, &idata);
+
+  return ret;
+}
