@@ -371,11 +371,13 @@ int main(){
     
     if(key==0){
     system("clear");
-    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
+    printf("\tSAMSUNG\n");
     printf("\nSelect Device:");
     printf("\n[0] MoviNAND 4.3");
     printf("\n[1] MoviNAND 4.41");
-    printf("\n[2] MoviNAND SD Card\n");
+    printf("\n[2] MoviNAND SD Card");
+    printf("\n[3] eMMC 5.0+\n");
+
     scanf("%d",&altkey);
     system("clear");
     if(altkey==0){
@@ -387,6 +389,10 @@ int main(){
     if(altkey==2){
     read_movi(fc, smart_block,64);
         }
+    if(altkey==3){
+    read51(fc, smart_block);
+        }
+
     }
 
 	if(key==1){
@@ -395,7 +401,7 @@ int main(){
 	
 	if(key==2){
     system("clear");
-    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
+    printf("\tHYNIX\n");
     printf("\nSelect Device:");
     printf("\n[0] Hynix Old");
     printf("\n[1] Hynix New");
@@ -411,7 +417,7 @@ int main(){
 	
 	if(key==3){
     system("clear");
-    printf("\tugurkrcl's SDeMMC Health Reader V1.1\n");
+    printf("\tTOSHIBA\n");
     system("clear");
     read_tsb(fc,smart_block);
 

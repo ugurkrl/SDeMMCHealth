@@ -113,3 +113,18 @@ void read_movi(int fc, __u8 data_in[512],int ver){
  
 }
 
+void read51(int fc,__u8 data_in[512]){
+  int fd;
+
+  swmode(fc,0x1E,0x10);
+  rwblk(fc,0xC7810000,Samsung_VSM_PWD,data_in);
+  printf("MLC Erase Count Max:%u Min:%u Avg:%u\n",(int)((data_in[59] << 24) + (data_in[58] << 16) + (data_in[57] << 8) + data_in[56]),
+        (int)((data_in[63] << 8) + (data_in[62] << 16) + (data_in[61] << 8) + data_in[60]),(int)((data_in[67] << 8) + (data_in[66] << 16) + (data_in[65] << 8) + data_in[64]));
+  swmode(fc,102,0x2);
+rwblk(fc,0xD7EF0326,Samsung_OSV_PWD,data_in);
+  printf("MLC Erase Count Max:%u Min:%u Avg:%u\n",(int)((data_in[59] << 24) + (data_in[58] << 16) + (data_in[57] << 8) + data_in[56]),
+        (int)((data_in[63] << 8) + (data_in[62] << 16) + (data_in[61] << 8) + data_in[60]),(int)((data_in[67] << 8) + (data_in[66] << 16) + (data_in[65] << 8) + data_in[64]));
+  close(fc);
+}
+
+
