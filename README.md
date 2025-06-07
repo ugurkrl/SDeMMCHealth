@@ -14,6 +14,12 @@ Compilation : gcc smart.c -o smart
 | SJS00A | 4.41 | KMSJS000KA | 21nm MLC |
 | VTU00M | 4.5 | KMVTU000LM | 21nm MLC |
 | Samsung Evo+ 32G | SD | MB-MC32D | 16nm TLC |
+
+# Samsung new SMART Report:
+| ID | eMMC Version | IC Model | Nand Type | Report |
+| - | - | - | - | - |
+| QE63MB | 5.1 | KMQE60013M | ? MLC | VSM + OSV |
+
 # Hynix old (V0) Report:
 | ID | eMMC Version | IC Model |
 | - | - | - |
