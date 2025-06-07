@@ -37,11 +37,11 @@ void read_movi(int fc, __u8 data_in[512],int ver){
 	idata.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
 	idata.blksz = 512;
 	idata.blocks = 1;
-	
+
 	mmc_ioc_cmd_set_data(idata, data_in);
     x = ioctl(fc, MMC_IOC_CMD, &idata);
     if(x==0)printf("[OK] Get SMART Report\n");
-    x = mmc_62_vendor_cmd(0x00DECCEE, fc);    
+    x = mmc_62_vendor_cmd(0x00DECCEE, fc);
 
     printf("\n");
 
@@ -115,15 +115,40 @@ void read_movi(int fc, __u8 data_in[512],int ver){
 
 void read51(int fc,__u8 data_in[512]){
   int fd;
-
+  printf("Samsung VSM Health Report\n\n");
   swmode(fc,0x1E,0x10);
   rwblk(fc,0xC7810000,Samsung_VSM_PWD,data_in);
+  printf("Total Erase Count Max:%u Min:%u Avg:%u\n",(int)((data_in[3] << 24) + (data_in[2] << 16) + (data_in[1] << 8) + data_in[0]),
+        (int)((data_in[7] << 8) + (data_in[6] << 16) + (data_in[5] << 8) + data_in[4]),
+         (int)((data_in[11] << 8) + (data_in[10] << 16) + (data_in[9] << 8) + data_in[8]));
+  printf("SLC Erase Count Max:%u Min:%u Avg:%u\n",(int)((data_in[47] << 24) + (data_in[46] << 16) + (data_in[45] << 8) + data_in[44]),
+        (int)((data_in[51] << 8) + (data_in[50] << 16) + (data_in[49] << 8) + data_in[48]),
+         (int)((data_in[55] << 8) + (data_in[54] << 16) + (data_in[53] << 8) + data_in[52]));
   printf("MLC Erase Count Max:%u Min:%u Avg:%u\n",(int)((data_in[59] << 24) + (data_in[58] << 16) + (data_in[57] << 8) + data_in[56]),
-        (int)((data_in[63] << 8) + (data_in[62] << 16) + (data_in[61] << 8) + data_in[60]),(int)((data_in[67] << 8) + (data_in[66] << 16) + (data_in[65] << 8) + data_in[64]));
+        (int)((data_in[63] << 8) + (data_in[62] << 16) + (data_in[61] << 8) + data_in[60]),
+         (int)((data_in[67] << 8) + (data_in[66] << 16) + (data_in[65] << 8) + data_in[64]));
+  printf("Read Reclaim Count:%u\n",(int)((data_in[15] << 24) + (data_in[14] << 16) + (data_in[13] << 8) + data_in[12]));
+  printf("Bad Block Count Init:%u Later:%u Reserved:%u\n\n",(int)((data_in[19] << 24) + (data_in[18] << 16) + (data_in[17] << 8) + data_in[16]),
+    (int)((data_in[23] << 24) + (data_in[22] << 16) + (data_in[21] << 8) + data_in[20]),
+    (int)((data_in[27] << 24) + (data_in[26] << 16) + (data_in[25] << 8) + data_in[24]));
+  printf("Firmware Patch Trial Count:%u\n",(int)((data_in[31] << 24) + (data_in[30] << 16) + (data_in[29] << 8) + data_in[28]));
+  printf("Firmware Patch Release Date:%u%u%u%u\n",data_in[35] ,data_in[34] , data_in[33] ,data_in[32]); //idk what format is this
+  printf("Firmware Patch Succes Count:%u\n\n",(int)((data_in[71] << 24) + (data_in[70] << 16) + (data_in[69] << 8) + data_in[68]));
+  printf("Cumulative initialization count:%u\n",(int)((data_in[43] << 24) + (data_in[42] << 16) + (data_in[41] << 8) + data_in[40]));
+  printf("Cumulative Write Data Size:%uMB\n",(int)((data_in[39] << 24) + (data_in[38] << 16) + (data_in[37] << 8) + data_in[36])*100);
+  printf("Cumulative Read Data Size:%uMB\n\n",(int)((data_in[75] << 24) + (data_in[74] << 16) + (data_in[73] << 8) + data_in[72])*100);
+  printf("VCC Drop Count:%u\n\n",(int)((data_in[79] << 24) + (data_in[78] << 16) + (data_in[77] << 8) + data_in[76])*100);
+  printf("Samsung OSV Device Report\n\n");
   swmode(fc,102,0x2);
 rwblk(fc,0xD7EF0326,Samsung_OSV_PWD,data_in);
-  printf("MLC Erase Count Max:%u Min:%u Avg:%u\n",(int)((data_in[59] << 24) + (data_in[58] << 16) + (data_in[57] << 8) + data_in[56]),
-        (int)((data_in[63] << 8) + (data_in[62] << 16) + (data_in[61] << 8) + data_in[60]),(int)((data_in[67] << 8) + (data_in[66] << 16) + (data_in[65] << 8) + data_in[64]));
+ printf("Reserved1:%u\n",(int)((data_in[3] << 24) + (data_in[2] << 16) + (data_in[1] << 8) + data_in[0]));
+ printf("Reserved2:%u\n",(int)((data_in[7] << 24) + (data_in[6] << 16) + (data_in[5] << 8) + data_in[4]));
+ printf("UNC Error:%u\n",(int)((data_in[11] << 24) + (data_in[10] << 16) + (data_in[9] << 8) + data_in[8]));
+ printf("Meta Data Status:%u\n",(int)((data_in[15] << 24) + (data_in[14] << 16) + (data_in[13] << 8) + data_in[12]));
+ printf("Runtime Bad Block:%u\n",(int)((data_in[19] << 24) + (data_in[18] << 16) + (data_in[17] << 8) + data_in[16]));
+ printf("Total Written Data Size:%uMB\n",(int)((data_in[23] << 24) + (data_in[22] << 16) + (data_in[21] << 8) + data_in[20])*100);
+  printf("LVD Detect Count:%u\n",(int)((data_in[27] << 24) + (data_in[26] << 16) + (data_in[25] << 8) + data_in[24]));
+
   close(fc);
 }
 
