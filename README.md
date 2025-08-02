@@ -38,7 +38,6 @@ Compilation : gcc smart.c -o smart
 # WD/Sandisk Report:
 | ID | eMMC Version | IC Model |
 | - | - | - |
-
 | iNAND® 7232 | 5.1 | SDINADF4-XXG |
 | iNAND® EM111 | 5.1 | SDINADF4-XXG |
 
