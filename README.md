@@ -14,6 +14,7 @@ Compilation : gcc smart.c -o smart
 | SJS00A | 4.41 | KMSJS000KA | 21nm MLC |
 | VTU00M | 4.5 | KMVTU000LM | 21nm MLC |
 | Q313MB | 5.0 | KMQ310013M | 16nm MLC |
+| -      | 5.0 | KMR21000AM | 16nm MLC | 
 | Samsung Evo+ 32G | SD | MB-MC32D | 16nm TLC |
 
 # Samsung new SMART Report:
