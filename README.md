@@ -54,7 +54,7 @@ Compilation : gcc smart.c -o smart
 | - | - | - | - |
 | SAMSUNG* | MoviNAND® 4.5 | 4.5 | KLMAG2GEAC-B001 |
 | SAMSUNG* | MoviNAND® 5.0 | 5.0 | KLMAG2GEAC-B031** |
-
+| SAMSUNG* | MoviNAND® 5.0 | 5.0 | Most Of TLC 5.0 eMMC's |
 
 1* : Do Not Run Code If OS Runs From SAMSUNG eMMC . Sometimes eMMC can't exit from report mode. System will hang.  
 2* : Same model eMMC but 5.0 Version. Supports EXT_CSD Life report but still no MoviNAND S.M.A.R.T Report
