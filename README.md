@@ -38,6 +38,7 @@ Compilation : gcc smart.c -o smart
 | 008G92 | 4.5  | THGBM5G6A2JBAIR | 19nm MLC | Health + Erase |
 | 016G92 | 4.5  | THGBMAG7A2JBAIR | 19nm MLC | Health + Erase |
 | 008GE0 | 5.0  | THGBMBG6D1KBAIL | 19nm MLC | Health + Erase |
+| 032G32 | 5.1  | THGBMHG8C2LBAIL | 19nm MLC | Health + Erase |
 # WD/Sandisk Report:
 | ID | eMMC Version | IC Model |
 | - | - | - |
