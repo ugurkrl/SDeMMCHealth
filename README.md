@@ -32,9 +32,9 @@ Compilation : gcc smart.c -o smart
 | hB8aP> | 5.1 | H26M62002JPR | 1znm MLC |
 
 # Toshiba Report:
-| ID | eMMC Version | IC Model | Report |
-| - | - | - | - |
-| 008G4B | 4.41 | THGBM4G6D2HBAIR | Health Only |
+| ID | eMMC Version | IC Model | Nand Type | Report |
+| - | - | - | - | - |
+| 008G4B | 4.41 | THGBM4G6D2HBAIR | 24nm MLC | Health Only |
 
 # WD/Sandisk Report:
 | ID | eMMC Version | IC Model |
