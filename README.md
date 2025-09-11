@@ -35,7 +35,9 @@ Compilation : gcc smart.c -o smart
 | ID | eMMC Version | IC Model | Nand Type | Report |
 | - | - | - | - | - |
 | 008G4B | 4.41 | THGBM4G6D2HBAIR | 24nm MLC | Health Only |
-
+| 008G92 | 4.5  | THGBM5G6A2JBAIR | 19nm MLC | Health + Erase |
+| 016G92 | 4.5  | THGBMAG7A2JBAIR | 19nm MLC | Health + Erase |
+| 008GE0 | 5.0  | THGBMBG6D1KBAIL | 19nm MLC | Health + Erase |
 # WD/Sandisk Report:
 | ID | eMMC Version | IC Model |
 | - | - | - |
