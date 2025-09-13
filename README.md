@@ -24,6 +24,8 @@ Compilation : gcc smart.c -o smart
 | ID | eMMC Version | IC Model | Nand Type | Report |
 | - | - | - | - | - |
 | QE63MB | 5.1 | KMQE60013M | ? MLC | VSM + OSV |
+| GX6BMB | 5.1 | KMGX6001BM | ? MLC | VSM + OSV |
+
 
 # Hynix old (V0) Report:
 | ID | eMMC Version | IC Model |
