@@ -27,9 +27,11 @@ Compilation : gcc smart.c -o smart
 | GX6BMB | 5.1 | KMGX6001BM | ? MLC | VSM + OSV |
 
 
+
 # Hynix old (V0) Report:
-| ID | eMMC Version | IC Model |
-| - | - | - |
+| ID | eMMC Version | IC Model | Nand Type |
+| - | - | - | - |
+| HBG4a2 | 5.1 | H9TQ26ADFTBC | ? MLC |
 
 # Hynix new (V1) Report:
 | ID | eMMC Version | IC Model | Nand Type |
